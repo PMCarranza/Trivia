@@ -1,0 +1,29 @@
+@font-face {
+    font-family: Marker Felt;
+    src: url(assets/css);
+  }
+
+  h1{
+      font-family: Marker Felt;
+  }
+
+  h2{
+    font-family: Marker Felt;
+}
+
+#press{
+    width: 300px;
+    font-family: Marker Felt;
+    font-size: 40px;
+    border: none;
+    color:white;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: yellowgreen;
+}
+
+/* #press:hover{
+        -webkit-transform: scale(1.3);
+        -ms-transform: scale(1.3);
+        transform: scale(1.5);
+} */
