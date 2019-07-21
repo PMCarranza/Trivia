@@ -1,5 +1,6 @@
 body{
     max-width: 960px;
+    margin: 0 auto;
 }
 
 #titulo{
@@ -14,23 +15,71 @@ body{
     text-align: center;
     padding: 30px;
 }
+
+#top{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .press{
-    width: 300px;;
+    opacity: .5;
+    width: 300px;
     font-family: Marker Felt;
     font-size: 50px;
     border: none;
     color:white;
     padding: 10px;
     border-radius: 10px;
-    background-color: yellowgreen;
+    background-color: red;
 }
 
-/* add hover to button*/
+.press:hover{
+    transform:scale(1.5);
+    transition: ease-in-out .5s;
+    background-color: yellowgreen;
+    opacity:1;
+}
+
+/* add hover to button to start an list*/
 
 #timer{
-   font-family: Arial, Helvetica, sans-serif;
-   font-optical-sizing: 32px;
-   font-weight: bolder;
-   color:red;
-   text-align: center; 
+    height:100px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+    font-weight: bolder;
+    text-align: center; 
 }
+
+#question{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 150%;
+    color:dodgerblue;
+    display:flex;
+    justify-content: center;
+    margin-bottom: 40px; 
+}
+
+.choice{
+    width:50%;
+    height: 50px;
+    display:block;
+    border:none;
+    font-size:150%;
+    font-weight: bold;
+    color:whitesmoke;
+    margin:0 auto;
+    padding:5px;
+    margin-bottom:20px;
+}
+.choice{
+    background-color:dodgerblue;
+    opacity: .5;
+}
+
+.choice:hover{
+    opacity: 1;
+    background:gray;
+}
+
