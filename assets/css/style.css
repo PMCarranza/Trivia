@@ -3,9 +3,20 @@ body{
     margin: 0 auto;
 }
 
+#fig-one{
+    z-index:-1;
+}
+
+#fig-{
+    z-index:-1;
+}
+
 #titulo{
     background-color: lavender;
     margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+
 }
 
 .top-text{
@@ -37,7 +48,7 @@ body{
 .press:hover{
     transform:scale(1.5);
     transition: ease-in-out .5s;
-    background-color: yellowgreen;
+    background-color: rgb(108, 59, 243);
     opacity:1;
 }
 
@@ -55,7 +66,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 150%;
-    color:dodgerblue;
+    color: rgb(108, 59, 243);
     display:flex;
     justify-content: center;
     margin-bottom: 40px; 
@@ -74,8 +85,8 @@ body{
     margin-bottom:20px;
 }
 .choice{
-    background-color:dodgerblue;
-    opacity: .5;
+    background-color:rgb(92, 240, 190);
+    opacity: .75;
 }
 
 .choice:hover{
