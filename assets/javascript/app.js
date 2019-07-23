@@ -18,7 +18,6 @@ var playing = false;
 var seconds = 5;
 var intervalId=0;
 var choiceMade;
-var algoAqui;  
 var questions = [
     {
         'question': 'How many different species of birds can be found in Guatemala?',
@@ -26,7 +25,7 @@ var questions = [
         'choiceB': 'Under 100',
         'choiceC': 'Over 700',
         'choiceD': 'Guatemala is a country, not an aviary',
-        'answer': 'choiceC',
+        'answer': 'Over 700',
         // 'rightImage':'assets/images/.jpg',
         'rightImage': 'https://via.placeholder.com'
         // 'wrongImage': 'assets/images/.jpg'
@@ -37,7 +36,7 @@ var questions = [
         'choiceB': 'Italy',
         'choiceC': 'Uruguay',
         'choiceD': 'England',
-        'answer': 'choiceA',
+        'answer': 'Brazil',
         // 'rightImage':'assets/images/.jpg',
         'rightImage': 'https://via.placeholder.com'
         // 'wrongImage': 'assets/images/.jpg'
@@ -48,7 +47,7 @@ var questions = [
         'choiceB': 'Uruguay 1930',
         'choiceC': 'USA 1994',
         'choiceD': 'Italy 1934',
-        'answer': 'choiceB',
+        'answer': 'Uruguay 1930',
         // 'rightImage':'assets/images/.jpg',
         'rightImage': 'https://via.placeholder.com'
         // 'wrongImage': 'assets/images/.jpg'
@@ -59,7 +58,7 @@ var questions = [
         'choiceB': '18',
         'choiceC': 'Under 25',
         'choiceD': 'Over 25',
-        'answer': 'choiceD',
+        'answer': 'Over 25',
         // 'rightImage':'assets/images/.jpg',
         'rightImage': 'https://via.placeholder.com'
         // 'wrongImage': 'assets/images/.jpg'
@@ -67,17 +66,7 @@ var questions = [
 ];
 
 
-    // adding button to page
-function startButton() {
-
-    var $gameStart = $('#top');
-    $gameStart.addClass('start-boton');
-
-    var boton = $('<button>');
-    boton.addClass('press').text('Start !');
-    $gameStart.append(boton);
-}
-startButton();
+start();
 
     // Games starts on when start button is clicked and after click button dissappears from screen the timer appears along with the first question
 function start() {
@@ -94,7 +83,7 @@ function countDown() {
     seconds--;
     var redSeconds = "<span style='color:red;font-size:200%;'>" + seconds + "</span>"
     //  adding the numbers to the #timer div.
-$   ('#timer').html('<p> You have :  ' + redSeconds + '  seconds to answer </p>');
+    $('#timer').html('<p> You have :  ' + redSeconds + '  seconds to answer </p>');
 
     // if timer reaches 0 move to unanswered window eventually
     if (seconds === 0) {
@@ -102,7 +91,7 @@ $   ('#timer').html('<p> You have :  ' + redSeconds + '  seconds to answer </p>'
         console.log('TIMER REACHED 0');
         clearInterval(intervalId);
     }
-}
+}  // closes the countDown function
 
 }// closes run function
         
@@ -111,26 +100,83 @@ run();
         // adding the question and the list of possible answers
         var questionHere = $("<h3>").text(questions[questionNumber].question);
         questionHere.addClass('pregunta');
-        $('#question').append(questionHere);
+        $('#choices').append(questionHere);
         
         // list of choice possible answers
-        firstChoice = $('<button>').text(questions[questionNumber].choiceA);
-        firstChoice.addClass('choice').attr('data-click');
-        secondChoice = $('<button>').text(questions[questionNumber].choiceB);
-        secondChoice.addClass('choice').attr('data-click');
-        thirdChoice = $('<button>').text(questions[questionNumber].choiceC);
-        thirdChoice.addClass('choice').attr('data-click');
-        fourthChoice = $('<button>').text(questions[questionNumber].choiceD);
-        fourthChoice.addClass('choice').attr('data-click');
+        firstChoice = $('<button class="q-button">').text(questions[questionNumber].choiceA);
+        firstChoice.addClass('choice');
+        secondChoice = $('<button class="q-button">').text(questions[questionNumber].choiceB);
+        secondChoice.addClass('choice');
+        thirdChoice = $('<button class="q-button">').text(questions[questionNumber].choiceC);
+        thirdChoice.addClass('choice');
+        fourthChoice = $('<button class="q-button">').text(questions[questionNumber].choiceD);
+        fourthChoice.addClass('choice');
         $('#choices').append(firstChoice).append(secondChoice).append(thirdChoice).append(fourthChoice);
-    })
+    })  // on.click function closing bracket parenthesis
 
-    if ($('#choices').on('click', function () {
-            // $('.choice').hide();
-        console.log('choice got clicked');
-        $('.choice').hide();
-    }));
-    questionNumber++;
-}  // this is the closing bracket for the start function
-start();
+    console.log('questionNo. ', questionNumber);
+
+    // // capturing the click on the choices and comparing it to the answer
+    // $('#choices').on('click', '.q-button', function () {
+    //     if ($(this).text() === questions[questionNumber].answer) {
+    //         $('#choices').empty();
+    //         clearInterval(intervalId);
+    //         correct++;
+    //         questionNumber++;
+    //         console.log('correct --> ', correct);
+    //         $('#right-answer').append('<p>That is right !');
+    //         $('#image').append("<img id='right' src=assets/images/right.png>");
+    //     } else if ($(this).text() !== questions[questionNumber].answer) {
+    //         $('#choices').empty();
+    //         clearInterval(intervalId);
+    //         wrong++;
+    //         console.log('wrong --> ', wrong);
+    //         $('#wrong-answer').append('<p>Rats ! that is not it.');
+    //         var $rightAnswer = $('<p>').text('The correct answer was :' + questions[questionNumber].answer);
+    //         $rightAnswer.addClass('wrong');
+    //         $('#wrong-answer').append($rightAnswer);
+
+    //         $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
+    //     }
+    //     console.log('this is what was clicked ', $(this).text());
+
+    // });
+
     
+}// this is the closing bracket for the start function
+
+// capturing the click on the choices and comparing it to the answer
+$('#choices').on('click', '.q-button', function () {
+    if ($(this).text() === questions[questionNumber].answer) {
+        $('#choices').empty();
+        clearInterval(intervalId);
+        correct++;
+        console.log('correct --> ', correct);
+        $('#right-answer').append('<p>That is right !');
+        $('#image').append("<img id='right' src=assets/images/right.png>");
+
+
+        $('#choices').delay(5000);
+        questionNumber++;
+        console.log('DID YOU COUNT TO 5?');
+        console.log('questionNo. ', questionNumber);
+
+
+
+    } else if ($(this).text() !== questions[questionNumber].answer) {
+        $('#choices').empty();
+        clearInterval(intervalId);
+        wrong++;
+        console.log('wrong --> ', wrong);
+        $('#wrong-answer').append('<p>Rats ! that is not it.');
+        var $rightAnswer = $('<p>').text('The correct answer was : ' + questions[questionNumber].answer);
+        $rightAnswer.addClass('wrong');
+        $('#wrong-answer').append($rightAnswer);
+        $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
+        questionNumber++
+        console.log('questionNo. ', questionNumber);
+
+    }
+    console.log('this is what was clicked ', $(this).text());
+
+});
