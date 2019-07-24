@@ -90,6 +90,7 @@ function countDown() {
     unanswered++;
         console.log('TIMER REACHED 0');
         clearInterval(intervalId);
+        outOfTime();
     }
 }  // closes the countDown function
 
@@ -116,67 +117,63 @@ run();
 
     console.log('questionNo. ', questionNumber);
 
-    // // capturing the click on the choices and comparing it to the answer
-    // $('#choices').on('click', '.q-button', function () {
-    //     if ($(this).text() === questions[questionNumber].answer) {
-    //         $('#choices').empty();
-    //         clearInterval(intervalId);
-    //         correct++;
-    //         questionNumber++;
-    //         console.log('correct --> ', correct);
-    //         $('#right-answer').append('<p>That is right !');
-    //         $('#image').append("<img id='right' src=assets/images/right.png>");
-    //     } else if ($(this).text() !== questions[questionNumber].answer) {
-    //         $('#choices').empty();
-    //         clearInterval(intervalId);
-    //         wrong++;
-    //         console.log('wrong --> ', wrong);
-    //         $('#wrong-answer').append('<p>Rats ! that is not it.');
-    //         var $rightAnswer = $('<p>').text('The correct answer was :' + questions[questionNumber].answer);
-    //         $rightAnswer.addClass('wrong');
-    //         $('#wrong-answer').append($rightAnswer);
-
-    //         $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
-    //     }
-    //     console.log('this is what was clicked ', $(this).text());
-
-    // });
-
-    
 }// this is the closing bracket for the start function
 
 // capturing the click on the choices and comparing it to the answer
 $('#choices').on('click', '.q-button', function () {
     if ($(this).text() === questions[questionNumber].answer) {
-        $('#choices').empty();
-        clearInterval(intervalId);
-        correct++;
-        console.log('correct --> ', correct);
-        $('#right-answer').append('<p>That is right !');
-        $('#image').append("<img id='right' src=assets/images/right.png>");
-
-
-        $('#choices').delay(5000);
-        questionNumber++;
-        console.log('DID YOU COUNT TO 5?');
-        console.log('questionNo. ', questionNumber);
-
-
-
+        rightAnswer();
     } else if ($(this).text() !== questions[questionNumber].answer) {
-        $('#choices').empty();
-        clearInterval(intervalId);
-        wrong++;
-        console.log('wrong --> ', wrong);
-        $('#wrong-answer').append('<p>Rats ! that is not it.');
-        var $rightAnswer = $('<p>').text('The correct answer was : ' + questions[questionNumber].answer);
-        $rightAnswer.addClass('wrong');
-        $('#wrong-answer').append($rightAnswer);
-        $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
-        questionNumber++
-        console.log('questionNo. ', questionNumber);
-
+        wrongAnswer();
+    } else {
+        outOfTime();
     }
     console.log('this is what was clicked ', $(this).text());
 
 });
+
+function rightAnswer() {
+    $('#choices').empty();
+    clearInterval(intervalId);
+    correct++;
+    console.log('correct --> ', correct);
+    $('#right-answer').append('<p>That is right !');
+    $('#image').append("<img id='right' src=assets/images/right.png>");
+};
+
+function wrongAnswer() {
+    $('#choices').empty();
+    clearInterval(intervalId);
+    wrong++;
+    console.log('wrong --> ', wrong);
+    $('#wrong-answer').append('<p>Rats ! that was unfortunate.');
+    var $rightAnswer = $('<p>').text('The correct answer was : ' + questions[questionNumber].answer);
+    $rightAnswer.addClass('wrong');
+    $('#wrong-answer').append($rightAnswer);
+    $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
+    questionNumber++
+    console.log('questionNo. ', questionNumber);   
+};
+
+function outOfTime() {
+    if (seconds === 0)
+    $('#choices').empty();
+    clearInterval(intervalId);
+    console.log('noAnswer --> ', unanswered);
+    $('#wrong-answer').append('<p>Rats ! that was unfortunate.');
+    var $rightAnswer = $('<p>').text('The correct answer was : ' + questions[questionNumber].answer);
+    $rightAnswer.addClass('wrong');
+    $('#wrong-answer').append($rightAnswer);
+    $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
+    questionNumber++
+    console.log('questionNo. ', questionNumber);
+};
+
+// var waitForIt;
+// function wait() {
+//     waitForIt = setTimeout(function () {
+//         run();
+//     },3000);
+// };
+
+

@@ -90,13 +90,13 @@ body{
     margin-bottom:20px;
 }
 .choice{
-    background-color:rgb(92, 240, 190);
+    background-color:rgb(108, 59, 243);
     opacity: .75;
 }
 
 .choice:hover{
     opacity: 1;
-    background:gray;
+    background:rgb(92, 240, 190);
 }
 
 #right-answer{
