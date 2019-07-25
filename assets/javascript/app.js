@@ -18,6 +18,8 @@ var playing = false;
 var seconds = 5;
 var intervalId=0;
 var choiceMade;
+// var questionsLeft = 4;
+
 var questions = [
     {
         'question': 'How many different species of birds can be found in Guatemala?',
@@ -66,83 +68,98 @@ var questions = [
 ];
 
 
-start();
+// start();
 
     // Games starts on when start button is clicked and after click button dissappears from screen the timer appears along with the first question
 function start() {
     $('button').on('click', function () {
+
         $('.press').hide();
+        // adding the timer to the page starting at 20 secs
+        function run() {
+            clearInterval(intervalId);
+            intervalId = setInterval(countDown, 1000);
+        };// closes run function
+    run();
 
-// adding the timer to the page starting at 20 secs
-function run() {
-    clearInterval(intervalId);
-    intervalId = setInterval(countDown, 1000);
-//  The countDown function.
-function countDown() {
-//  Decrease number by one.
-    seconds--;
-    var redSeconds = "<span style='color:red;font-size:200%;'>" + seconds + "</span>"
-    //  adding the numbers to the #timer div.
-    $('#timer').html('<p> You have :  ' + redSeconds + '  seconds to answer </p>');
+        //  The countDown function.
+        function countDown() {
+            //  Decrease number by one.
+            seconds--;
+            var redSeconds = "<span style='color:red;font-size:200%;'>" + seconds + "</span>"
+            //  adding the numbers to the #timer div.
+            $('#timer').html('<p> You have :  ' + redSeconds + '  seconds to answer </p>');
 
-    // if timer reaches 0 move to unanswered window eventually
-    if (seconds === 0) {
-    unanswered++;
-        console.log('TIMER REACHED 0');
-        clearInterval(intervalId);
-        outOfTime();
-    }
-}  // closes the countDown function
+            // if timer reaches 0 move to unanswered window eventually
+            if (seconds === 0) {
+                unanswered++;
+                console.log('TIMER REACHED 0');
+                clearInterval(intervalId);
+                outOfTime();
+                askQuestions();
+            }
+        }  // closes the countDown function
 
-}// closes run function
-        
-run();
+        askQuestions();
 
-        // adding the question and the list of possible answers
-        var questionHere = $("<h3>").text(questions[questionNumber].question);
-        questionHere.addClass('pregunta');
-        $('#choices').append(questionHere);
-        
-        // list of choice possible answers
-        firstChoice = $('<button class="q-button">').text(questions[questionNumber].choiceA);
-        firstChoice.addClass('choice');
-        secondChoice = $('<button class="q-button">').text(questions[questionNumber].choiceB);
-        secondChoice.addClass('choice');
-        thirdChoice = $('<button class="q-button">').text(questions[questionNumber].choiceC);
-        thirdChoice.addClass('choice');
-        fourthChoice = $('<button class="q-button">').text(questions[questionNumber].choiceD);
-        fourthChoice.addClass('choice');
-        $('#choices').append(firstChoice).append(secondChoice).append(thirdChoice).append(fourthChoice);
-    })  // on.click function closing bracket parenthesis
+    });  // on.click function closing bracket parenthesis
 
-    console.log('questionNo. ', questionNumber);
+};// this is the closing bracket for the start function 
 
-}// this is the closing bracket for the start function
+start();
+
+// function to generate questions
+function askQuestions() {
+    $('#choices').empty();
+    $('#image').empty();
+    $('#right-answer').empty();
+    $('#wrong-answer').empty();
+    // adding the question and the list of possible answers
+    var questionHere = $("<h3>").text(questions[questionNumber].question);
+    questionHere.addClass('pregunta');
+    $('#choices').append(questionHere);
+    
+    // list of choice possible answers
+    firstChoice = $('<button class="q-button">').text(questions[questionNumber].choiceA);
+    firstChoice.addClass('choice');
+    secondChoice = $('<button class="q-button">').text(questions[questionNumber].choiceB);
+    secondChoice.addClass('choice');
+    thirdChoice = $('<button class="q-button">').text(questions[questionNumber].choiceC);
+    thirdChoice.addClass('choice');
+    fourthChoice = $('<button class="q-button">').text(questions[questionNumber].choiceD);
+    fourthChoice.addClass('choice');
+    $('#choices').append(firstChoice).append(secondChoice).append(thirdChoice).append(fourthChoice);
+};
+console.log('questionNo. ', questionNumber);
 
 // capturing the click on the choices and comparing it to the answer
 $('#choices').on('click', '.q-button', function () {
     if ($(this).text() === questions[questionNumber].answer) {
         rightAnswer();
+        $('#choices').empty();
+        wait();
     } else if ($(this).text() !== questions[questionNumber].answer) {
         wrongAnswer();
-    } else {
-        outOfTime();
-    }
+        $('#choices').empty();
+        wait();
+    } 
     console.log('this is what was clicked ', $(this).text());
 
 });
 
 function rightAnswer() {
-    $('#choices').empty();
     clearInterval(intervalId);
     correct++;
     console.log('correct --> ', correct);
     $('#right-answer').append('<p>That is right !');
     $('#image').append("<img id='right' src=assets/images/right.png>");
+    questionNumber++;
+    // questionsLeft--;
+    console.log('question No after right answer -->', questionNumber);
+    // console.log('questionsLeft-->', questionsLeft);
 };
 
 function wrongAnswer() {
-    $('#choices').empty();
     clearInterval(intervalId);
     wrong++;
     console.log('wrong --> ', wrong);
@@ -151,29 +168,56 @@ function wrongAnswer() {
     $rightAnswer.addClass('wrong');
     $('#wrong-answer').append($rightAnswer);
     $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
-    questionNumber++
-    console.log('questionNo. ', questionNumber);   
+    questionNumber++;
+    // questionsLeft--;
+    console.log('question No after wrong answer ', questionNumber); 
+    // console.log('questionsLeft-->', questionsLeft);
 };
 
 function outOfTime() {
-    if (seconds === 0)
-    $('#choices').empty();
-    clearInterval(intervalId);
-    console.log('noAnswer --> ', unanswered);
-    $('#wrong-answer').append('<p>Rats ! that was unfortunate.');
-    var $rightAnswer = $('<p>').text('The correct answer was : ' + questions[questionNumber].answer);
-    $rightAnswer.addClass('wrong');
-    $('#wrong-answer').append($rightAnswer);
-    $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
-    questionNumber++
-    console.log('questionNo. ', questionNumber);
+        $('#choices').empty();
+        $('#image').empty();
+        $('#right-answer').empty();
+        $('#wrong-answer').empty();
+        console.log('noAnswer --> ', unanswered);
+        $('#wrong-answer').append('<p>Rats ! that was unfortunate.');
+        var $rightAnswer = $('<p>').text('The correct answer was : ' + questions[questionNumber].answer);
+        $rightAnswer.addClass('wrong');
+        $('#wrong-answer').append($rightAnswer);
+        $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
+        questionNumber++;
+        // questionsLeft--;
+        console.log('questionNo. ', questionNumber);
+        // console.log('questionsLeft-->', questionsLeft);
 };
 
-// var waitForIt;
-// function wait() {
-//     waitForIt = setTimeout(function () {
-//         run();
-//     },3000);
+var waitForIt;
+function wait() {
+    waitForIt = setTimeout(function () {
+      askQuestions();
+        if (questionNumber ===3) {
+        $('#choices').empty();
+          showResults();
+        };
+    },3000);
+};   //closes wait function
+
+// show results
+
+function showResults() {
+    $('#results').append('<h4>It is not about winning or losing but how you play the game, but in case you are keeping score,  here is how you did</h4>')
+    var $rightOnes = $('<p>').text('You knew ' + correct + ' answers');
+    $rightOnes.addClass('show-results');
+    var $wrongOnes = $('<p>').text('You did not know ' + wrong + ' answers');
+    $wrongOnes.addClass('show-results');
+    var $noAnswer = $('<p>').text('You ran out of time on ' + unanswered + ' questions');
+    $noAnswer.addClass('show-results');
+    $('#results').append($rightOnes).append($wrongOnes).append($noAnswer);
+
+
+}
+
+
+// function reStart() {
+//     start();
 // };
-
-
