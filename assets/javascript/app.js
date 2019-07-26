@@ -2,7 +2,7 @@
 
 //  declaring variables needed
 
-var questionNumber=0;
+var questionNumber=-1;
 var choiceA=$('<button>');
 var choiceB=$('<button>');
 var choiceC=$('<button>');
@@ -92,7 +92,7 @@ function start() {
 
             // if timer reaches 0 move to unanswered window eventually
             if (seconds === 0) {
-                unanswered++;
+                // unanswered++;
                 console.log('TIMER REACHED 0');
                 clearInterval(intervalId);
                 outOfTime();
@@ -110,6 +110,7 @@ start();
 
 // function to generate questions
 function askQuestions() {
+    questionNumber++;
     $('#choices').empty();
     $('#image').empty();
     $('#right-answer').empty();
@@ -129,6 +130,7 @@ function askQuestions() {
     fourthChoice = $('<button class="q-button">').text(questions[questionNumber].choiceD);
     fourthChoice.addClass('choice');
     $('#choices').append(firstChoice).append(secondChoice).append(thirdChoice).append(fourthChoice);
+    
 };
 console.log('questionNo. ', questionNumber);
 
@@ -138,11 +140,20 @@ $('#choices').on('click', '.q-button', function () {
         rightAnswer();
         $('#choices').empty();
         wait();
+        // runAgain();
+        // countDownTwo();
     } else if ($(this).text() !== questions[questionNumber].answer) {
         wrongAnswer();
         $('#choices').empty();
         wait();
-    } 
+        // runAgain();
+        // countDownTwo();
+    } else {
+        $('#choices').empty();
+        wait();
+        // runAgain();
+        // countDownTwo();
+    }
     console.log('this is what was clicked ', $(this).text());
 
 });
@@ -153,7 +164,7 @@ function rightAnswer() {
     console.log('correct --> ', correct);
     $('#right-answer').append('<p>That is right !');
     $('#image').append("<img id='right' src=assets/images/right.png>");
-    questionNumber++;
+    // questionNumber++;
     // questionsLeft--;
     console.log('question No after right answer -->', questionNumber);
     // console.log('questionsLeft-->', questionsLeft);
@@ -168,11 +179,11 @@ function wrongAnswer() {
     $rightAnswer.addClass('wrong');
     $('#wrong-answer').append($rightAnswer);
     $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
-    questionNumber++;
+    // questionNumber++;
     // questionsLeft--;
     console.log('question No after wrong answer ', questionNumber); 
     // console.log('questionsLeft-->', questionsLeft);
-};
+};  //closes wrong answer function
 
 function outOfTime() {
         $('#choices').empty();
@@ -189,21 +200,20 @@ function outOfTime() {
         // questionsLeft--;
         console.log('questionNo. ', questionNumber);
         // console.log('questionsLeft-->', questionsLeft);
-};
+};  //closes out of time function
 
 var waitForIt;
 function wait() {
     waitForIt = setTimeout(function () {
-      askQuestions();
-        if (questionNumber ===3) {
+        askQuestions();
+        if (questionNumber >=4) {
         $('#choices').empty();
-          showResults();
+        showResults();
         };
     },3000);
 };   //closes wait function
 
 // show results
-
 function showResults() {
     $('#results').append('<h4>It is not about winning or losing but how you play the game, but in case you are keeping score,  here is how you did</h4>')
     var $rightOnes = $('<p>').text('You knew ' + correct + ' answers');
@@ -213,9 +223,35 @@ function showResults() {
     var $noAnswer = $('<p>').text('You ran out of time on ' + unanswered + ' questions');
     $noAnswer.addClass('show-results');
     $('#results').append($rightOnes).append($wrongOnes).append($noAnswer);
+};   //closes shoe results
 
 
-}
+// *=*=*=*=*=  TRYING TO GET THE COUNTER TO RESTART
+
+// function runAgain() {
+//     clearInterval(intervalId);
+//     intervalId = setInterval(countDownTwo, 1000);
+// };// closes runAgain function
+
+// function countDownTwo() {
+//     //  Decrease number by one.
+//     seconds;
+//     var redSeconds = "<span style='color:red;font-size:200%;'>" + seconds + "</span>"
+//     //  adding the numbers to the #timer div.
+//     $('#timer').html('<p> You have :  ' + redSeconds + '  seconds to answer </p>');
+
+//     // if timer reaches 0 move to unanswered window eventually
+//     if (seconds === 0) {
+//         unanswered++;
+//         console.log('TIMER REACHED 0');
+//         clearInterval(intervalId);
+//         outOfTime();
+//         askQuestions();
+//     }
+// };  // closes the count down two function
+
+
+// runAgain();
 
 
 // function reStart() {
