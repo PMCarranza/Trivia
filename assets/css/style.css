@@ -1,27 +1,14 @@
-
-
 body{
     max-width: 960px;
     margin: 0 auto;
     background-color:#bbacf1;
 }
 
-/* 
-#fig-one{
-    float: left;
-    width:20;
-    height:20%;
-    z-index:-1;
+#back-img{
+    background-image: url("images/fondo1.png");
 }
-#fig-two{
-    float: right;
-    width:20;
-    height:20%;
-    z-index:-1;
-} */
 
 #titulo{
-    /* background-color: lavender; */
     margin-top: 25px;
     margin-bottom: 40px;
     display: flex;
@@ -107,15 +94,27 @@ body{
 #right-answer{
     font-family: Marker Felt;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 60px;
     color:blue;
     text-align: center;
 }
 
 #image #right{
-    float:right;
-    width: 25%;
-    height: 25%;
+    float: right;
+    width: 35%;
+    height: 35%;
+    animation: bounce 0.5s;
+    animation-direction: alternate;
+    animation-timing-function: cubic-bezier(.5,0.05,1,.5);
+    animation-iteration-count: infinite;
+}
+@keyframes bounce {
+    from { transform: translate3d(0, 0, 0);     }
+    to   { transform: translate3d(0, 200px, 0); }
+}
+@-webkit-keyframes bounce {
+    from { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+    to   { -webkit-transform: translate3d(0, 200px, 0); transform: translate3d(0, 200px, 0); }
 }
 
 #wrong-answer{
@@ -127,9 +126,8 @@ body{
 }
 
 #image #wrong{
-    float:left;
-    width: 25%;
-    height: 25%;
+    float: left;
+    width: 35%;
 }
 
 #results{
@@ -156,13 +154,23 @@ body{
     text-align: center;
 }
 
-.mo-answer{
+.no-answer{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 30px;
     color:blue;
     text-align: center;
 }
+
+a{
+    font-family:Arial, Helvetica, sans-serif;
+    color:black;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+}
+
 
 
 

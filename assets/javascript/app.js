@@ -4,6 +4,9 @@ var choiceA=$('<button>');
 var choiceB=$('<button>');
 var choiceC=$('<button>');
 var choiceD = $('<button>');
+var choiceD = $('<button>');
+var choiceE = $('<button>');
+var choiceF = $('<button>');
 var firstChoice;
 var secondChoice;
 var thirdChoice;
@@ -11,11 +14,7 @@ var fourthChoice;
 var correct=0;
 var wrong=0;
 var unanswered=0;
-var playing = false;
-var seconds = 5;
 var intervalId;
-var choiceMade;
-// var questionsLeft = 4;
 var questions = [
     {
         'question': 'How many different species of birds can be found in Guatemala?',
@@ -24,9 +23,6 @@ var questions = [
         'choiceC': 'Over 700',
         'choiceD': 'Guatemala is a country, not an aviary',
         'answer': 'Over 700',
-        // 'rightImage':'assets/images/.jpg',
-        'rightImage': 'https://via.placeholder.com'
-        // 'wrongImage': 'assets/images/.jpg'
     },
     {
         'question': 'What country has won the most World Cups?',
@@ -35,9 +31,6 @@ var questions = [
         'choiceC': 'Uruguay',
         'choiceD': 'England',
         'answer': 'Brazil',
-        // 'rightImage':'assets/images/.jpg',
-        'rightImage': 'https://via.placeholder.com'
-        // 'wrongImage': 'assets/images/.jpg'
     },
     {
         'question': 'Where and when was the first World Cup played?',
@@ -46,9 +39,6 @@ var questions = [
         'choiceC': 'USA 1994',
         'choiceD': 'Italy 1934',
         'answer': 'Uruguay 1930',
-        // 'rightImage':'assets/images/.jpg',
-        'rightImage': 'https://via.placeholder.com'
-        // 'wrongImage': 'assets/images/.jpg'
     },
     {
         'question': 'How many volcanoes can be found in Guatemala?',
@@ -57,14 +47,28 @@ var questions = [
         'choiceC': 'Under 25',
         'choiceD': 'Over 25',
         'answer': 'Over 25',
-        // 'rightImage':'assets/images/.jpg',
-        'rightImage': 'https://via.placeholder.com'
-        // 'wrongImage': 'assets/images/.jpg'
+    },
+    {
+        'question': 'What is the word for goodness in spanish?',
+        'choiceA': 'justicia',
+        'choiceB': 'triunfo',
+        'choiceC': 'bondad',
+        'choiceD': 'diez',
+        'answer': 'bondad',
+    },
+    {
+        'question': 'Which one is the longest-running Broadway show?',
+        'choiceA': 'Lion King',
+        'choiceB': 'The Phantom of the Opera',
+        'choiceC': 'Hamilton',
+        'choiceD': 'Wicked',
+        'answer': 'The Phantom of the Opera',
     }
 ];
 // start();
     // Games starts on when start button is clicked and after click button dissappears from screen the timer appears along with the first question
-        //  The countDown function.
+    
+    //  The countDown function.
 function countDown() {
     //  Decrease number by one.
     seconds--;
@@ -81,18 +85,18 @@ function countDown() {
 }  // closes the countDown function
 function run() {
     // clearInterval(intervalId);
-    seconds = 5;
+    seconds = 10;
     intervalId = setInterval(countDown, 1000);
+    
 };// closes run function
-// function start() {
+
     $('button').on('click', function () {
         $('.press').hide();
         // adding the timer to the page starting at 20 secs
         // run();
         askQuestions();
     });  // on.click function closing bracket parenthesis
-// };// this is the closing bracket for the start function 
-// start();
+
 // function to generate questions
 function askQuestions() {
     run();
@@ -115,10 +119,15 @@ function askQuestions() {
     thirdChoice.addClass('choice');
     fourthChoice = $('<button class="q-button">').text(questions[questionNumber].choiceD);
     fourthChoice.addClass('choice');
-    $('#choices').append(firstChoice).append(secondChoice).append(thirdChoice).append(fourthChoice);
+    fifthChoice = $('<button class="q-button">').text(questions[questionNumber].choiceE);
+    fifthChoice.addClass('choice');
+    sixthChoice = $('<button class="q-button">').text(questions[questionNumber].choiceF);
+    sixthChoice.addClass('choice');
+    $('#choices').append(firstChoice).append(secondChoice).append(thirdChoice).append(fourthChoice)
     
 };
 console.log('questionNo. ', questionNumber);
+
 // capturing the click on the choices and comparing it to the answer
 $('#choices').on('click', '.q-button', function () {
     if ($(this).text() === questions[questionNumber].answer) {
@@ -130,17 +139,15 @@ $('#choices').on('click', '.q-button', function () {
     wait();
     console.log('this is what was clicked ', $(this).text());
 });
+
 function rightAnswer() {
-    // clearInterval(intervalId);
     correct++;
     console.log('correct --> ', correct);
     $('#right-answer').append('<p>That is right !');
     $('#image').append("<img id='right' src=assets/images/right.png>");
-    // questionNumber++;
-    // questionsLeft--;
     console.log('question No after right answer -->', questionNumber);
-    // console.log('questionsLeft-->', questionsLeft);
 };
+
 function wrongAnswer() {
     // clearInterval(intervalId);
     wrong++;
@@ -150,11 +157,9 @@ function wrongAnswer() {
     $rightAnswer.addClass('wrong');
     $('#wrong-answer').append($rightAnswer);
     $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
-    // questionNumber++;
-    // questionsLeft--;
     console.log('question No after wrong answer ', questionNumber); 
-    // console.log('questionsLeft-->', questionsLeft);
 };  //closes wrong answer function
+
 function outOfTime() {
     unanswered++;
     $('#choices').empty();
@@ -167,20 +172,18 @@ function outOfTime() {
     $rightAnswer.addClass('wrong');
     $('#wrong-answer').append($rightAnswer);
     $('#image').append("<img id='wrong' src=assets/images/wrong.png>");
-    // questionNumber++;
-    // questionsLeft--;
+    
     console.log('questionNo. ', questionNumber);
-    // console.log('questionsLeft-->', questionsLeft);
-    // run();
-    // askQuestions();
+    
     wait();
 };  //closes out of time function
+
 // var waitForIt;
 function wait() {
     questionNumber++;
     clearInterval(intervalId);
     var waitForIt = setTimeout(function () {
-        if (questionNumber > 3) {
+        if (questionNumber > 5) {
             $('#timer').empty();
             $('#choices').empty();
             $('#image').empty();
@@ -192,6 +195,7 @@ function wait() {
         }
     },3000);
 };   //closes wait function
+
 // show results
 function showResults() {
     $('#results').append('<h4>It is not about winning or losing but how you play the game, but in case you are keeping score,  here is how you did</h4>')
@@ -202,4 +206,26 @@ function showResults() {
     var $noAnswer = $('<p>').text('You ran out of time on : ' + unanswered);
     $noAnswer.addClass('no-answer');
     $('#results').append($rightOnes).append($wrongOnes).append($noAnswer);
+    
+    $('#results').append('<a href="https://en.wikipedia.org/wiki/List_of_birds_of_Guatemala" target="_blank">Birds of Guatemala</a>');
+
+    $('#results').append('<a href="https://en.wikipedia.org/wiki/FIFA_World_Cup" target="_blank">World Cup Winners</a>');
+
+    $('#results').append('<a href="https://en.wikipedia.org/wiki/FIFA_World_Cup_hosts" target="_blank">World Cup Hosts</a>');
+
+    $('#results').append('<a href="https://en.wikipedia.org/wiki/List_of_volcanoes_in_Guatemala" target="_blank">Volcanoes of Guatemala</a>');
+
+    $('#results').append('<a href="https://translate.google.com/?hl=en&tab=TT&authuser=0" target="_blank">Basic Translator</a>');
+
+    $('#results').append('<a href="https://en.wikipedia.org/wiki/List_of_the_longest-running_Broadway_shows" target="_blank">Longest Running Shows</a>');
+
+    
+    reStart();
 };   //closes shoe results
+
+function reStart() {
+    clearInterval(intervalId);
+    setTimeout(function(){
+        location.reload();
+    }, 7000);
+};
