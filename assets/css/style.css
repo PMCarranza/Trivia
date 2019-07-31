@@ -1,16 +1,41 @@
 body{
     max-width: 960px;
     margin: 0 auto;
-    background-color:#bbacf1;
+    background-color:#ccc3ee;
 }
 
-#back-img{
-    background-image: url("images/fondo1.png");
+#fig-one { 
+    z-index:-1;
+    width:20%; 
+    height:20%; 
+    transform-origin:100% center; 
+    position:relative; 
+    margin-right: 180px;
+    animation:rotate 7s linear infinite; }
+#fig-one:before { 
+    content:''; 
+    position:absolute; 
+    animation:rotate 5s linear normal infinite; 
 }
+@keyframes rotate { 75% { transform:rotate(360deg); } }
+
+#fig-two { 
+    z-index:-1;
+    width:20%; 
+    height:20%; 
+    transform-origin:100% center; 
+    position:relative; 
+    animation:rotate 6s linear infinite; }
+#fig-two:before { 
+    content:''; 
+    position: absolute;
+    animation:rotate 5s linear reverse infinite; 
+}
+@keyframes rotate { 25% { transform:rotate(-360deg); } }
 
 #titulo{
     margin-top: 25px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: center;
 
@@ -54,7 +79,7 @@ body{
 #timer{
     height:100px;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 100%;
+    font-size: 150%;
     font-weight: bolder;
     text-align: center; 
 }
@@ -62,10 +87,9 @@ body{
 .pregunta{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    font-size: 150%;
+    font-size: 200%;
     color: rgb(108, 59, 243);
-    display:flex;
-    justify-content: center;
+    text-align: center;
     margin-bottom: 40px; 
 }
 
@@ -130,12 +154,20 @@ body{
     width: 35%;
 }
 
+h4{
+    font-size: 150%;
+    color:rgb(108, 59, 243);
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
 #results{
     font-family: Marker Felt;
     font-weight: bold;
     font-size: 30px;
     color:blue;
     text-align: center;
+    margin-bottom:20px;
 }
 
 .right-ones{
@@ -144,6 +176,7 @@ body{
     font-size: 30px;
     color:greenyellow;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .wrong-ones{
@@ -152,14 +185,16 @@ body{
     font-size: 30px;
     color:red;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .no-answer{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 30px;
-    color:blue;
+    color:gray;
     text-align: center;
+    margin-bottom: 40px;
 }
 
 a{
@@ -169,9 +204,5 @@ a{
     font-size: 18px;
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
 }
-
-
-
-
-

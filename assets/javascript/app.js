@@ -72,7 +72,7 @@ var questions = [
 function countDown() {
     //  Decrease number by one.
     seconds--;
-    var redSeconds = "<span style='color:red;font-size:200%;'>" + seconds + "</span>"
+    var redSeconds = "<span style='color:red;font-size:225%;'>" + seconds + "</span>"
     //  adding the numbers to the #timer div.
     $('#timer').html('<p> You have :  ' + redSeconds + '  seconds to answer </p>');
         // if timer reaches 0 move to unanswered window eventually
@@ -124,8 +124,8 @@ function askQuestions() {
     sixthChoice = $('<button class="q-button">').text(questions[questionNumber].choiceF);
     sixthChoice.addClass('choice');
     $('#choices').append(firstChoice).append(secondChoice).append(thirdChoice).append(fourthChoice)
-    
-};
+};// closes ask questions function
+
 console.log('questionNo. ', questionNumber);
 
 // capturing the click on the choices and comparing it to the answer
