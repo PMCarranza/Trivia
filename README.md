@@ -4,13 +4,14 @@ The question runs on a timer, if the user runs out of time a message is displaye
 
 After the last question has been answered a window with the final results will be displayed.
 
-Try it yourself https://pmcarranza.github.io/TriviaGame/
+Try it yourself https://pmcarranza.github.io/Trivia/
 
 ## **Technologies used**
 •  HTML
 •  CSS
 •  Javascript
 •  jQuery
+•  Timers
 
 ## **Support**
 You can contact me at marino.carranza@gmail.com with any questions or feedback related to this app.
