@@ -92,7 +92,8 @@ function run() {
 
     $('button').on('click', function () {
         $('.press').hide();
-        // adding the timer to the page starting at 20 secs
+        $('#fondo').empty();
+
         // run();
         askQuestions();
     });  // on.click function closing bracket parenthesis
@@ -141,6 +142,7 @@ $('#choices').on('click', '.q-button', function () {
 });
 
 function rightAnswer() {
+    $('#timer').empty();
     correct++;
     console.log('correct --> ', correct);
     $('#right-answer').append('<p>That is right !');
@@ -150,6 +152,7 @@ function rightAnswer() {
 
 function wrongAnswer() {
     // clearInterval(intervalId);
+    $('#timer').empty();
     wrong++;
     console.log('wrong --> ', wrong);
     $('#wrong-answer').append('<p>Rats ! that was unfortunate.');
@@ -161,6 +164,7 @@ function wrongAnswer() {
 };  //closes wrong answer function
 
 function outOfTime() {
+    $('#timer').empty();
     unanswered++;
     $('#choices').empty();
     $('#image').empty();
@@ -221,7 +225,7 @@ function showResults() {
 
     
     reStart();
-};   //closes shoe results
+};   //closes show results
 
 function reStart() {
     clearInterval(intervalId);
