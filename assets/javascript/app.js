@@ -85,7 +85,7 @@ function countDown() {
 }  // closes the countDown function
 function run() {
     // clearInterval(intervalId);
-    seconds = 10;
+    seconds = 7;
     intervalId = setInterval(countDown, 1000);
     
 };// closes run function
@@ -197,7 +197,7 @@ function wait() {
         } else {
             askQuestions();
         }
-    },3000);
+    },7000);
 };   //closes wait function
 
 // show results
@@ -231,5 +231,5 @@ function reStart() {
     clearInterval(intervalId);
     setTimeout(function(){
         location.reload();
-    }, 7000);
+    }, 10000);
 };
